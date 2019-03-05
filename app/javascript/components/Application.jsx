@@ -3,7 +3,9 @@ import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import TopNav from './shared/TopNav';
+
 import BoardsDashboardContainer from './dashboard/BoardsDashboardContainer';
+import BoardsDashboard from './dashboard/BoardsDashboard';
 
 import { fetchBoards } from '../actions/BoardActions';
 
@@ -28,6 +30,7 @@ class Application extends React.Component {
       <div>
         <TopNav />
         <Route path='/' exact component={BoardsDashboardContainer} />
+        <Route path='/boards/:id' component={} />
       </div>
     );
   }

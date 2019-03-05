@@ -14,14 +14,20 @@ class Api::BoardsController < ApplicationController
       render 'api/shared/error', status: :unprocessable_entity
     end
   rescue ActionController::ParameterMissing
-    @error = "Invalid board data provided"
+    @error = 'Invalid board data provided'
     render 'api/shared/error', status: :unprocessable_entity
   end
 
   def show
-    @board = Board.find(params[:id])
 
-    render :show
+    if Board.exists?(params[:id])
+      @board = Board.find(params[:id])
+
+      render :show
+    else
+      @error = 'Something went wrong'
+      render 'api/shared/error', status: :unprocessable_entity
+    end
   end
 
   private
