@@ -18,6 +18,12 @@ class Api::BoardsController < ApplicationController
     render 'api/shared/error', status: :unprocessable_entity
   end
 
+  def show
+    @board = Board.find(params[:id])
+
+    render :show
+  end
+
   private
 
   def board_params
