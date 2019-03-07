@@ -25,6 +25,23 @@ export function createBoardSuccess(board) {
   return { type: types.CREATE_BOARD_SUCCESS, board: board };
 }
 
+export function updateListTitleRequest() {
+  return { type: types.LIST_TITLE_REQUEST };
+}
+
+export function updateListTitleSuccess(list) {
+  return { type: types.LIST_TITLE_SUCCESS, list: list };
+}
+
+export function updateListTitle(id, newTitle) {
+  return function(dispatch) {
+    dispatch(updateListTitleRequest());
+    apiClient.updateList(id, newTitle, (list) => {
+      dispatch(updateListTitleSuccess(list))
+    });
+  }
+}
+
 export function fetchBoards() {
   return function(dispatch) {
     dispatch(fetchBoardsRequest());

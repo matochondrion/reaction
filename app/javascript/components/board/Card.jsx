@@ -5,8 +5,10 @@ import * as actions from '../../actions/BoardActions';
 
 class Card extends React.Component {
   render() {
-    const labels = this.props.labels.map((label) => (
-      <div className={`card-label ${label} colorblindable`}></div>
+    const labels = this.props.labels.map((label, idx) => (
+      <div key={idx}
+        className={`card-label ${label} colorblindable`}>
+      </div>
     ));
 
     return (

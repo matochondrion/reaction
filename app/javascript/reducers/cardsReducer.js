@@ -5,5 +5,7 @@ export default function cardsReducer(state = [], action) {
       return acc.concat(list.cards);
     }, []);
     return cards;
+  } else {
+    return state;
   }
 }

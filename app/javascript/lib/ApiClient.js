@@ -19,6 +19,12 @@ axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 axios.defaults.headers.common['Accept'] = 'application/json';
 
 const apiClient = {
+  updateList: function(id, title, callback) {
+    return axios.put(`/api/lists/${id}`, { title })
+      .then(unwrapData)
+      .then(callback)
+      .then(logError)
+  },
   getBoard: function(id, callback) {
     return axios.get(`/api/boards/${id}`)
       .then(unwrapData)

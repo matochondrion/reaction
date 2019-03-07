@@ -12,6 +12,14 @@ export default function listsReducer(state = [], action) {
       return list.board_id !== action.board.id;
     });
     return filteredLists.concat(lists);
+  } else if (action.type === 'LIST_TITLE_SUCCESS') { 
+      return state.map((list) => {
+        if (list.id == action.list.id) {
+          return action.list;
+        } else {
+          return list;
+        }
+      });
   } else {
     return state;
   }

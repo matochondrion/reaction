@@ -16,7 +16,7 @@ export default class ChangeTitleForm extends React.Component {
   )
 
   onBlur = (evt) => (
-    this.props.onBlur(evt);
+    this.props.onBlur(evt)
   );
 
   render() {

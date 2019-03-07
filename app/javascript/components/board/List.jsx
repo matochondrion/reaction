@@ -1,21 +1,18 @@
 import React from 'react';
 import CardsContainer from './CardsContainer';
 import ChangeTitleForm from './ChangeTitleForm';
+import * as actions from '../../actions/BoardActions';
+import PropTypes from 'prop-types';
 
 export default class List extends React.Component {
-  // static contextTypes = {
-  //   store: PropTypes.object.isRequired
-  // };
+  static contextTypes = {
+    store: PropTypes.object.isRequired
+  };
 
-  // when someone clicks on list-title
-  // it replaces the p tag with a changeTitleForm
-  // <p className="list-title">{this.props.title}</p>
-
-  componentDidMount() {
-    this.setState({
-      editableTitle: false
-    })
-  }
+  state = {
+    editableTitle: false,
+    title: this.props.title
+  };
 
   handleTitleClick = (evt) => (
     this.setState({
@@ -23,11 +20,15 @@ export default class List extends React.Component {
     })
   );
 
-  handleOnBlur = (evt) => (
+  handleOnBlur = (evt) => {
+    const newTitle = evt.target.value;
+    this.context.store.dispatch(actions.updateListTitle(this.props.id, newTitle));
+    
     this.setState({
-      editableTitle: false
+      editableTitle: false,
+      title: newTitle
     })
-  );
+  };
 
   render() {
     return (
@@ -43,8 +44,9 @@ export default class List extends React.Component {
                           onBlur={this.handleOnBlur}
                         />) :
                         (<p 
-                          className="list-title">{this.props.title}
                           onClick={this.handleTitleClick}
+                          className="list-title">
+                          {this.state.title}
                         </p>)
                       }
                   </div>
