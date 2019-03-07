@@ -10,7 +10,7 @@ class CardsContainer extends React.Component {
 
   render() {
     let cards = this.context.store.getState().cards.filter((card) => {
-      console.log(card.id);
+      
       return card.list_id === this.props.listId;
     });
 
