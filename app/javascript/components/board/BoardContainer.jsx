@@ -27,8 +27,9 @@ class BoardContainer extends React.Component {
     });
 
     return (
-      <Board 
+      <Board
         board={board}
+        boardId={boardId}
       />
     );
   }

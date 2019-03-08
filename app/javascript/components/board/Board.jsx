@@ -17,7 +17,9 @@ class Board extends React.Component {
             <i className="sub-icon sm-icon"></i>Subscribed</div>
         </header>
         <main>
-            <ListsContainer />
+          <ListsContainer
+            boardId={this.props.boardId}
+          />
         </main>
       </div>
     );
