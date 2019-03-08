@@ -26,10 +26,12 @@ export function createBoardSuccess(board) {
 }
 
 export function updateListTitleRequest() {
+  // TODO: should be UPDATE_LIST_REQUEST
   return { type: types.LIST_TITLE_REQUEST };
 }
 
 export function updateListTitleSuccess(list) {
+  // TODO: should be UPDATE_LIST_SUCCESS
   return { type: types.LIST_TITLE_SUCCESS, list: list };
 }
 

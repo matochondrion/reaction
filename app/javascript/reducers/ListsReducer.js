@@ -13,6 +13,7 @@ export default function listsReducer(state = [], action) {
     });
     return filteredLists.concat(lists);
   } else if (action.type === 'LIST_TITLE_SUCCESS') { 
+      // should be update_list_succes
       return state.map((list) => {
         if (list.id == action.list.id) {
           return action.list;
@@ -22,7 +23,6 @@ export default function listsReducer(state = [], action) {
       });
   } else if (action.type === 'CREATE_LIST_SUCCESS') {
     // action.list has the new list
-    // we want
     return state.concat(action.list);
   } else {
     return state;

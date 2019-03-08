@@ -26,6 +26,7 @@ const apiClient = {
       .then(logError)
   },
   createList: function(boardId, list, callback) {
+    // TODO: extract route urls to constants
     return axios.post(`/api/lists`, {board_id: boardId, list: list})
       .then(unwrapData)
       .then(callback)
