@@ -1,6 +1,6 @@
 class Api::ListsController < ApplicationController
   def update
-    # change
+    # a change
   end
 
   def create
