@@ -25,6 +25,12 @@ const apiClient = {
       .then(callback)
       .then(logError)
   },
+  createList: function(boardId, list, callback) {
+    return axios.post(`/api/lists`, {board_id: boardId, list: list})
+      .then(unwrapData)
+      .then(callback)
+      .then(logError)
+  },
   getBoard: function(id, callback) {
     return axios.get(`/api/boards/${id}`)
       .then(unwrapData)
