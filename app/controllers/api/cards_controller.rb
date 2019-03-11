@@ -8,7 +8,6 @@ class Api::CardsController < ApplicationController
       @error = 'Something went wrong'
       render 'api/shared/error', status: :unprocessable_entity
     end
-
   end
 
   def create
@@ -34,8 +33,8 @@ class Api::CardsController < ApplicationController
       card_params.keys.each do |field|
         field = field.to_sym
         if Action.field_to_description(field)
-          description = Action.field_to_description(field, card_params[field])
-          Action.create(description: description), card: @card)
+          description = Action.field_to_description(field, card_params[field])[field]
+          Action.create(description: description, card: @card)
         end
       end
       render :update, status: :updated
