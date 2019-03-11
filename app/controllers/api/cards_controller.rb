@@ -1,4 +1,16 @@
 class Api::CardsController < ApplicationController
+  def show
+    if Card.exists?(params[:id])
+      @card = Card.find(params[:id])
+
+      render :show
+    else
+      @error = 'Something went wrong'
+      render 'api/shared/error', status: :unprocessable_entity
+    end
+
+  end
+
   def create
     @list = List.find(params[:list_id])
     @card = Card.new(card_params.merge({ list: @list }))
@@ -16,14 +28,22 @@ class Api::CardsController < ApplicationController
   end
 
   def update
-    
-  end
-
-  def show
-
+  # if key == X action,
+  # title
+  # list_id
+  # position
+  # description
+  # archived
+  # due_date
+  # completed
+  # labels
   end
 
   private
+
+  def change_title
+    Action.new(params[:description])
+  end
 
   def card_params
     params.require(:card).permit(:title)
