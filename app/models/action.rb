@@ -3,9 +3,10 @@ class Action < ApplicationRecord
   belongs_to :card, foreign_key: 'card_id', class_name: 'Card', required: true
 
   def self.field_to_description(field, content = '')
+    content = field === :list_id ? List.find(content.to_i).title : content
     {
       title: " Changed title to #{content}",
-      list_id: " Changed list to #{List.find(content.to_i).title}",
+      list_id: " Changed list to #{content}",
       position: " Changed position to #{content}",
       description: " Changed description to #{content}",
       archived: " Changed archived to #{content}",

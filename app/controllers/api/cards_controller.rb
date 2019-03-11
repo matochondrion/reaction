@@ -31,9 +31,11 @@ class Api::CardsController < ApplicationController
     @card = Card.find(params[:id])
 
     if @card.update(card_params)
-      card_params[:card].each do |field|
+      card_params.keys.each do |field|
+        field = field.to_sym
         if Action.field_to_description(field)
-          Action.create(description: Action.field_to_description(field, card_params[field]))
+          description = Action.field_to_description(field, card_params[field])
+          Action.create(description: description), card: @card)
         end
       end
       render :update, status: :updated
@@ -53,6 +55,6 @@ class Api::CardsController < ApplicationController
   end
 
   def card_params
-    params.require(:card).permit(:title, :list_id, :position, :description, :archived, :due_date, :completed, :labels)
+    params.require(:card).permit(:title, :card => [:title, :list_id, :position, :description, :archived, :due_date, :completed, :labels])
   end
 end
