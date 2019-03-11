@@ -31,7 +31,7 @@ class Api::CardsController < ApplicationController
     @card = Card.find(params[:id])
 
     if @card.update(card_params)
-      card_params.each do |field|
+      card_params[:card].each do |field|
         if Action.field_to_description(field)
           Action.create(description: Action.field_to_description(field, card_params[field]))
         end
