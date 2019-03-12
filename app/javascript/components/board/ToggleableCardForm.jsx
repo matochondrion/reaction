@@ -2,9 +2,10 @@ import React from 'react';
 import * as actions from '../../actions/BoardActions';
 import PropTypes from 'prop-types';
 
-export default class List extends React.Component {
+export default class ToggleableCardForm extends React.Component {
   state = {
     cardFormOpen: false,
+    
   }
 
   static contextTypes = {
@@ -18,7 +19,10 @@ export default class List extends React.Component {
   handleAddClick = (evt) => {
     evt.preventDefault()
     this.setState({cardFormOpen: false});
-    
+
+    const listId = this.props.listId;
+    const newTitle = 
+    this.context.store.dispatch(actions.createCard(listId, {''}));
   }
 
   render() {

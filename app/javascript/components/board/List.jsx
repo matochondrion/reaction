@@ -64,7 +64,9 @@ export default class List extends React.Component {
                     />
                   </div>
 
-                  <ToggleableCardForm />
+                  <ToggleableCardForm
+                    listId={this.props.id}
+                  />
 
               </div>
           </div>
