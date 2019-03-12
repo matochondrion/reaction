@@ -2,6 +2,7 @@ import React from 'react';
 import Board from './Board.jsx';
 import PropTypes from 'prop-types';
 import * as actions from '../../actions/BoardActions';
+import SingleCard from './SingleCard';
 
 class BoardContainer extends React.Component {
   static contextTypes = {
@@ -25,12 +26,16 @@ class BoardContainer extends React.Component {
     let board = store.getState().boards.find((board) => {
       return board.id === boardId;
     });
+    const activeCard = store.getState().activeCard
 
     return (
-      <Board
-        board={board}
-        boardId={boardId}
-      />
+      <div>
+        {activeCard ? <SingleCard id={activeCard.id} /> : null }
+        <Board
+          board={board}
+          boardId={boardId}
+        />
+      </div>
     );
   }
 }

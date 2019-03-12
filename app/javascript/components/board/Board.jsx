@@ -2,9 +2,12 @@ import React from 'react';
 import ListsContainer from './ListsContainer';
 
 class Board extends React.Component {
+
   render() {
     return (
+
       <div>
+
         <header>
           <ul>
             <li id="title">{this.props.board.title}</li>
