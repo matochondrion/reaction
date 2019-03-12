@@ -4,6 +4,15 @@ import PropTypes from 'prop-types';
 import * as actions from '../../actions/BoardActions';
 
 class SingleCard extends React.Component {
+  static contextTypes = {
+    store: PropTypes.object.isRequired
+  };
+
+  
+  // TODO: get the active card from this.props.id
+  // TODO: dispatch REMOVE_ACTIVE_CARD_SUCESS to the store
+  // TODO: add dynamic card details below
+
   render() {
     return (
     <div id="modal-container">

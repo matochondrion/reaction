@@ -21,6 +21,7 @@ class BoardContainer extends React.Component {
   }
 
   render() {
+    // if there is a board, return the board, otherwise return null
     let store = this.context.store;
     let boardId = Number(this.props.match.params.id);
     let board = store.getState().boards.find((board) => {
@@ -28,15 +29,28 @@ class BoardContainer extends React.Component {
     });
     const activeCard = store.getState().activeCard
 
-    return (
-      <div>
-        {activeCard ? <SingleCard id={activeCard.id} /> : null }
-        <Board
-          board={board}
-          boardId={boardId}
-        />
-      </div>
-    );
+    if (board) {
+      return (
+        <div>
+          {activeCard ? <SingleCard id={activeCard.id} /> : null }
+          <Board
+            board={board}
+            boardId={boardId}
+          />
+        </div>
+        );
+    } else {
+      return null;
+    }
+    // return (
+    //   <div>
+    //     {activeCard ? <SingleCard id={activeCard.id} /> : null }
+    //     <Board
+    //       board={board}
+    //       boardId={boardId}
+    //     />
+    //   </div>
+    // );
   }
 }
 
