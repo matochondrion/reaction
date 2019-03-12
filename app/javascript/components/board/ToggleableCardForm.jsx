@@ -38,6 +38,10 @@ export default class ToggleableCardForm extends React.Component {
     });
   }
 
+  // add string array of classnames
+  // if there is cardFormOpen, then push the class to it
+  // then className={classes.join(' ')}
+
   render() {
 
     const addFormClass = this.state.cardFormOpen ? "add-dropdown add-dropdown-active active-card" : "add-dropdown add-bottom add-bottom";

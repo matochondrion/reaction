@@ -7,8 +7,9 @@ class SingleCard extends React.Component {
   static contextTypes = {
     store: PropTypes.object.isRequired
   };
+  // you will need to subscribe to the store here
+  // because we will have comments...
 
-  
   // TODO: get the active card from this.props.id
   // TODO: dispatch REMOVE_ACTIVE_CARD_SUCESS to the store
   // TODO: add dynamic card details below
