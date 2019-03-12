@@ -32,6 +32,7 @@ export default class List extends React.Component {
   };
 
   render() {
+    //TODO: add toggleable add-dropdown-active class to list-wrapper
     return (
       <div className="list-wrapper">
           <div className="list-background">

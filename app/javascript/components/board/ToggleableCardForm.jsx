@@ -7,29 +7,48 @@ export default class List extends React.Component {
     cardFormOpen: false,
   }
 
+  static contextTypes = {
+    store: PropTypes.object.isRequired
+  };
+
   onClickAddCard = () => {
     this.setState({cardFormOpen: true});
   }
 
+  handleAddClick = (evt) => {
+    evt.preventDefault()
+    this.setState({cardFormOpen: false});
+    
+  }
+
   render() {
 
-    if (this.state.cardFormOpen) {
-      return (
-        <div class="add-dropdown add-bottom active-card">
-          <div class="card"><div class="card-info"></div><textarea name="add-card"></textarea><div class="members"></div></div>
-          <a class="button">Add</a><i class="x-icon icon"></i>
-          <div class="add-options"><span>...</span>
+    const addFormClass = this.state.cardFormOpen ? "add-dropdown add-dropdown-active active-card" : "add-dropdown add-bottom add-bottom";
+    const addButtonClass = this.state.cardFormOpen ? "add-dropdown-active add-card-toggle" : "add-card-toggle";
+
+    return (
+      <div>
+        <div className={addFormClass}>
+          <div className="card">
+            <div className="card-info"></div>
+            <textarea name="add-card"></textarea>
+            <div className="members"></div>
+          </div>
+          <a 
+            className="button"
+            onClick={this.handleAddClick}
+          >Add</a>
+          <i className="x-icon icon"></i>
+          <div className="add-options">
+            <span>...</span>
+          </div>
         </div>
-      </div>
-      )
-    } else {
-      return (
-        <div className="add-card-toggle"
+        <div className={addButtonClass}
           data-position="bottom"
           onClick={this.onClickAddCard}>
         Add a card...
         </div>
+      </div>
     )
     }
-  }
 }
