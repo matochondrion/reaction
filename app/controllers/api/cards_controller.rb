@@ -49,11 +49,7 @@ class Api::CardsController < ApplicationController
 
   private
 
-  def change_title
-    Action.new(params[:description])
-  end
-
   def card_params
-    params.require(:card).permit(:title, :card => [:title, :list_id, :position, :description, :archived, :due_date, :completed, :labels])
+    params.require(:card).permit(:title, :list_id, :position, :description, :archived, :due_date, :completed, :labels)
   end
 end
