@@ -51,7 +51,7 @@ export function createCardSuccess(card) {
   return { type: types.CREATE_CARD_SUCCESS, card: card }
 }
 
-export function setActiveCardSucess(id) {
+export function setActiveCardSuccess(id) {
   return { type: types.SET_ACTIVE_CARD_SUCCESS, id: id}
 }
 
@@ -124,7 +124,7 @@ export function createCard(listId, card, callback) {
 
 export function setActiveCard(cardId) {
   return function(dispatch) {
-    dispatch(setActiveCardSucess(cardId));
+    dispatch(setActiveCardSuccess(cardId));
   }
 }
 

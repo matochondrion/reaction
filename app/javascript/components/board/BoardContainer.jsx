@@ -27,12 +27,13 @@ class BoardContainer extends React.Component {
     let board = store.getState().boards.find((board) => {
       return board.id === boardId;
     });
+    
     const activeCard = store.getState().activeCard
 
     if (board) {
       return (
         <div>
-          {activeCard ? <SingleCard id={activeCard.id} /> : null }
+          {activeCard ? <SingleCard id={activeCard} /> : null }
           <Board
             board={board}
             boardId={boardId}

@@ -11,8 +11,8 @@ class SingleCard extends React.Component {
   componentDidMount() {
     const store = this.context.store;
     this.unsubscribe = store.subscribe(() => this.forceUpdate());
-
-    store.dispatch(actions.fetchCard(this.props.id));
+    const cardId = store.getState().activeCard;
+    store.dispatch(actions.fetchCard(cardId));
   }
 
   componentWillUnmount() {
