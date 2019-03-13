@@ -2,8 +2,11 @@ import React from 'react';
 import Board from './Board.jsx';
 import PropTypes from 'prop-types';
 import * as actions from '../../actions/BoardActions';
+import ActivityContainer from './ActivityContainer';
 
 class SingleCard extends React.Component {
+  
+
   static contextTypes = {
     store: PropTypes.object.isRequired
   };
@@ -19,10 +22,11 @@ class SingleCard extends React.Component {
     this.unsubscribe();
   }
 
-  // you will need to subscribe to the store here
-  // because we will have comments...
+  handleCloseClick = () => {
+    const store = this.context.store;
+    store.dispatch(actions.removeActiveCard());
+  }
 
-  // TODO: get the active card from this.props.id
   // TODO: dispatch REMOVE_ACTIVE_CARD_SUCESS to the store
   // TODO: add dynamic card details below
 
@@ -33,16 +37,40 @@ class SingleCard extends React.Component {
       return card.id === cardId;
     });
 
+    const labels = card.labels.map((label, idx) => {
+      return (
+        <div key={idx} className="member-container">
+          <div className={`${label} label colorblindable`}></div>
+        </div>
+      );
+    })
+
     if (card) {
       return (
         <div id="modal-container">
           <div className="screen"></div>
           <div id="modal">
-            <i className="x-icon icon close-modal"></i>
+            <i 
+              className="x-icon icon close-modal"
+              onClick={this.handleCloseClick}
+            ></i>
             <header>
-              <i className="card-icon icon .close-modal"></i>
-              <textarea className="list-title" style={{height: "45px"}}>Cards do many cool things. Click on this card to open it and learn more...</textarea>
-              <p>in list <a className="link">Stuff to try (this is a list)</a><i className="sub-icon sm-icon"></i>
+              <i 
+                className="card-icon icon .close-modal"
+                // save modal
+              ></i>
+              <textarea 
+                className="list-title" 
+                style={{height: "45px"}}
+                value={card.title}
+              ></textarea>
+              <p>
+                in list
+                <a 
+                  className="link"
+                  // some other component?
+                > {store.getState().lists.find(list => list.id === card.list_id).title}</a>
+                <i className="sub-icon sm-icon"></i>
               </p>
             </header>
             <section className="modal-main">
@@ -51,38 +79,31 @@ class SingleCard extends React.Component {
                   <ul className="modal-details-list">
                     <li className="labels-section">
                       <h3>Labels</h3>
-                      <div className="member-container">
-                        <div className="green label colorblindable"></div>
-                      </div>
-                      <div className="member-container">
-                        <div className="yellow label colorblindable"></div>
-                      </div>
-                      <div className="member-container">
-                        <div className="orange label colorblindable"></div>
-                      </div>
-                      <div className="member-container">
-                        <div className="blue label colorblindable"></div>
-                      </div>
-                      <div className="member-container">
-                        <div className="purple label colorblindable"></div>
-                      </div>
-                      <div className="member-container">
-                        <div className="red label colorblindable"></div>
-                      </div>
-                      <div className="member-container"><i className="plus-icon sm-icon"></i>
-                      </div>
+                      {labels.length === 0 ? null : labels}
                     </li>
                     <li className="due-date-section">
                       <h3>Due Date</h3>
                       <div id="dueDateDisplay" className="overdue completed">
-                        <input id="dueDateCheckbox" type="checkbox" className="checkbox" checked=""/>Aug 4 at 10:42 AM <span>(past due)</span>
+                        <input 
+                          id="dueDateCheckbox" 
+                          type="checkbox" 
+                          className="checkbox" 
+                          checked=""
+                        />{card.due_date}<span>{new Date(card.due_date) > Date.now() ? null : "(past due)"  }</span>
                       </div>
                     </li>
                   </ul>
                   <form className="description">
                     <p>Description</p>
-                    <span id="description-edit" className="link">Edit</span>
-                    <p className="textarea-overlay">Cards have a symbol to indicate if they contain a description.</p>
+                    <span 
+                      id="description-edit" 
+                      className="link"
+                      // TODO: add editable description
+                    >Edit</span>
+                    <p 
+                      className="textarea-overlay"
+                      value={card.description}
+                    ></p>
                     <p id="description-edit-options" className="hidden">You have unsaved edits on this field. <span className="link">View edits</span> - <span className="link">Discard</span>
                     </p>
                   </form>
@@ -114,61 +135,10 @@ class SingleCard extends React.Component {
                   <ul className="horiz-list">
                     <li className="not-implemented">Show Details</li>
                   </ul>
-                  <ul className="modal-activity-list">
-                    <li>
-                      <div className="member-container">
-                        <div className="card-member">TP</div>
-                      </div>
-                      <h3>Taylor Peat</h3>
-                      <div className="comment static-comment"><span>The activities are not functional.</span>
-                      </div>
-                      <small>22 minutes ago - <span className="link">Edit</span> - <span className="link">Delete</span></small>
-                      <div className="comment">
-                        <label>
-                          <textarea required="" rows="1">The activities have not been implemented yet.</textarea>
-                          <div>
-                            <a className="light-button card-icon sm-icon"></a>
-                            <a className="light-button smiley-icon sm-icon"></a>
-                            <a className="light-button email-icon sm-icon"></a>
-                          </div>
-                          <div>
-                            <p>You haven't typed anything!</p>
-                            <input type="submit" className="button not-implemented" value="Save"/><i className="x-icon icon"></i>
-                          </div>
-                        </label>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="member-container">
-                        <div className="card-member small-size">VR</div>
-                      </div>
-                      <p><span className="member-name">Victor Reyes</span> changed the background of this board <small>yesterday at 4:53 PM</small>
-                      </p>
-                    </li>
-                    <li className="activity-comment">
-                      <div className="member-container">
-                        <div className="card-member">VR</div>
-                      </div>
-                      <h3>Victor Reyes</h3>
-                      <div className="comment static-comment"><span>Example of a comment.</span>
-                      </div>
-                      <small>22 minutes ago - <span className="link">Edit</span> - <span className="link">Delete</span></small>
-                      <div className="comment">
-                        <label>
-                          <textarea required="" rows="1">Example of a comment.</textarea>
-                          <div>
-                            <a className="light-button card-icon sm-icon"></a>
-                            <a className="light-button smiley-icon sm-icon"></a>
-                            <a className="light-button email-icon sm-icon"></a>
-                          </div>
-                          <div>
-                            <p>You haven't typed anything!</p>
-                            <input type="submit" className="button not-implemented" value="Save"/><i className="x-icon icon"></i>
-                          </div>
-                        </label>
-                      </div>
-                    </li>
-                  </ul>
+                  <ActivityContainer 
+                    activities={card.comments}
+                  />
+                  
                 </li>
               </ul>
             </section>

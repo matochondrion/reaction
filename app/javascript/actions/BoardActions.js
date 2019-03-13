@@ -55,6 +55,10 @@ export function setActiveCardSuccess(id) {
   return { type: types.SET_ACTIVE_CARD_SUCCESS, id: id}
 }
 
+export function removeActiveCardSucess() {
+  return { type: types.REMOVE_ACTIVE_CARD_SUCCESS }
+}
+
 export function fetchCardRequest() {
   return { type: types.FETCH_CARD_REQUEST };
 }
@@ -125,6 +129,12 @@ export function createCard(listId, card, callback) {
 export function setActiveCard(cardId) {
   return function(dispatch) {
     dispatch(setActiveCardSuccess(cardId));
+  }
+}
+
+export function removeActiveCard() {
+  return function(dispatch) {
+    dispatch(removeActiveCardSucess());
   }
 }
 
