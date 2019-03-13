@@ -7,6 +7,16 @@ class SingleCard extends React.Component {
   static contextTypes = {
     store: PropTypes.object.isRequired
   };
+
+  componentDidMount() {
+    const store = this.context.store;
+    this.unsubscribe = store.subscribe(() => this.forceUpdate());
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
   // you will need to subscribe to the store here
   // because we will have comments...
 
@@ -15,6 +25,8 @@ class SingleCard extends React.Component {
   // TODO: add dynamic card details below
 
   render() {
+    // const card = store.cards.filter
+
     return (
     <div id="modal-container">
       <div className="screen"></div>
