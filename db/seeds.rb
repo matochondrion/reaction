@@ -21,3 +21,6 @@ list1_card2 = Card.create title: 'second card', list: list1, description: 'blah'
 list2_card1 = Card.create title: 'first card', list: list2, description: 'blah', labels: ['red'], due_date: 2.days.from_now
 list2_card2 = Card.create title: 'second card', list: list2, description: 'blah', labels: ['red'], due_date: 2.days.from_now
 list2_card3 = Card.create title: 'third card', list: list2, description: 'blah', labels: ['red'], due_date: 2.days.from_now
+
+card1_comment1 = Comment.create text: 'here is a comment', card: list2_card1
+card1_comment2 = Comment.create text: 'another comment right here!', card: list2_card1
