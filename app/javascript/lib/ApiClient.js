@@ -57,6 +57,13 @@ const apiClient = {
       .then(callback)
       .catch(logError);
   },
+
+  getCard: function(cardId, callback) {
+    return axios.get(`${routes.CARDS_INDEX_URL}/${cardId}`)
+      .then(unwrapData)
+      .then(callback)
+      .catch(logError);
+  }
 };
 
 export default apiClient;

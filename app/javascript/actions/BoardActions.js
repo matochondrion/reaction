@@ -59,6 +59,10 @@ export function fetchCardRequest() {
   return { type: types.FETCH_CARD_REQUEST };
 }
 
+export function fetchCardSuccess(card) {
+  return { type: types.FETCH_CARD_SUCCESS, card: card };
+}
+
 export function updateListTitle(id, newTitle) {
   return function(dispatch) {
     dispatch(updateListTitleRequest());
@@ -124,13 +128,11 @@ export function setActiveCard(cardId) {
   }
 }
 
-export function fetchCard(cardId, callback) {
+export function fetchCard(cardId) {
   return function(dispatch) {
     dispatch(fetchCardRequest());
     apiClient.getCard(cardId, (card) => {
       dispatch(fetchCardSuccess(card));
-
-      if (callback) { callback(newCard) }
     })
   }
 }
