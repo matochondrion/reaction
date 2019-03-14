@@ -11,14 +11,14 @@ class SingleCard extends React.Component {
   };
 
   state = {
-    card: {},
+    card: undefined,
   };
 
   componentDidMount() {
     const store = this.context.store;
     this.unsubscribe = store.subscribe(() => this.forceUpdate());
     const cardId = store.getState().activeCard;
-    
+
     store.dispatch(actions.fetchCard(cardId, (card) => {
       this.setState({
         card: card,
@@ -44,15 +44,16 @@ class SingleCard extends React.Component {
 
   render() {
     const card = this.state.card;
-    const labels = card.labels.map((label, idx) => {
-      return (
-        <div key={idx} className="member-container">
-          <div className={`${label} label colorblindable`}></div>
-        </div>
-      );
-    })
 
     if (card) {
+      const labels = card.labels.map((label, idx) => {
+        return (
+          <div key={idx} className="member-container">
+            <div className={`${label} label colorblindable`}></div>
+          </div>
+        );
+      })
+
       return (
         <div id="modal-container">
           <div className="screen"></div>
@@ -77,7 +78,7 @@ class SingleCard extends React.Component {
                 <a 
                   className="link"
                   // some other component?
-                > {store.getState().lists.find(list => list.id === card.list_id).title}</a>
+                > {this.context.store.getState().lists.find(list => list.id === card.list_id).title}</a>
                 <i className="sub-icon sm-icon"></i>
               </p>
             </header>
@@ -143,14 +144,14 @@ class SingleCard extends React.Component {
                   <ul className="horiz-list">
                     <li className="not-implemented">Show Details</li>
                   </ul>
-                  <ActivityContainer 
+                  <ActivityContainer
                     activities={card.comments}
                   />
-                  
+
                 </li>
               </ul>
             </section>
-       
+
             <aside className="modal-buttons">
               <h2>Add</h2>
               <ul>
