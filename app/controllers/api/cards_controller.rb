@@ -37,7 +37,7 @@ class Api::CardsController < ApplicationController
           Action.create(description: description, card: @card)
         end
       end
-      render :update, status: :updated
+      render :update, status: 202
     else
       @error = @card.errors.full_messages.join(', ')
       render 'api/shared/error', status: :unprocessable_entity

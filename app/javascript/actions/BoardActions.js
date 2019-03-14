@@ -134,11 +134,10 @@ export function createCard(listId, card, callback) {
   }
 }
 
-export function updateCard(card, callback) {
-  console.log(card);
+export function updateCard(cardId, card, callback) {
   return function(dispatch) {
     dispatch(updateCardRequest());
-    apiClient.updateCard(card, (updatedCard) => {
+    apiClient.updateCard(cardId, card, (updatedCard) => {
       dispatch(updateCardSuccess(updatedCard));
 
       if (callback) { callback(updatedCard) }

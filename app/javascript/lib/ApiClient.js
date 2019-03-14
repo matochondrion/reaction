@@ -7,7 +7,7 @@ function logError(errorResponse) {
   if (response && response.data && response.data.error) {
     console.error(`HTTP Error: ${response.data.error}`);
   } else {
-    console.error("Error: ", errorResponse);
+    console.error("Error: ", errorResponse, ' ', response);
   }
 }
 
@@ -65,9 +65,8 @@ const apiClient = {
       .catch(logError);
   },
 
-  updateCard: function(card, callback) {
-    console.log({card: {...card}});
-    return axios.put(`${routes.CARDS_INDEX_URL}/${card.id}`, {card: {...card}})
+  updateCard: function(cardId, card, callback) {
+    return axios.put(`${routes.CARDS_INDEX_URL}/${cardId}`, {card: card })
       .then(unwrapData)
       .then(callback)
       .catch(logError);

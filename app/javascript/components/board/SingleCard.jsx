@@ -3,6 +3,7 @@ import Board from './Board.jsx';
 import PropTypes from 'prop-types';
 import * as actions from '../../actions/BoardActions';
 import ActivityContainer from './ActivityContainer';
+import ToggleableCardDescriptionForm from './ToggleableCardDescriptionForm';
 
 class SingleCard extends React.Component {
 
@@ -43,7 +44,8 @@ class SingleCard extends React.Component {
   };
 
   handleOnBlurTitle = (evt) => {
-   this.context.store.dispatch(actions.updateCard({title: this.state.card.title, id: this.state.card.id}));
+   this.context.store.dispatch(actions.updateCard(this.state.card.id,
+    {title: this.state.card.title}));
   }
 
   // TODO: dispatch REMOVE_ACTIVE_CARD_SUCESS to the store
@@ -110,20 +112,9 @@ class SingleCard extends React.Component {
                       </div>
                     </li>
                   </ul>
-                  <form className="description">
-                    <p>Description</p>
-                    <span 
-                      id="description-edit" 
-                      className="link"
-                      // TODO: add editable description
-                    >Edit</span>
-                    <p 
-                      className="textarea-overlay"
-                      value={card.description}
-                    ></p>
-                    <p id="description-edit-options" className="hidden">You have unsaved edits on this field. <span className="link">View edits</span> - <span className="link">Discard</span>
-                    </p>
-                  </form>
+                  <ToggleableCardDescriptionForm 
+                    {...card}
+                  />
                 </li>
                 <li className="comment-section">
                   <h2 className="comment-icon icon">Add Comment</h2>
