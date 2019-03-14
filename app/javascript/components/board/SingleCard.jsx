@@ -36,8 +36,15 @@ class SingleCard extends React.Component {
   };
 
   handleChangeTitle = (evt) => {
-
+    this.setState({card: {
+      ...this.state.card,
+      title: evt.target.value,
+    }});
   };
+
+  handleOnBlurTitle = (evt) => {
+   this.context.store.dispatch(actions.updateCard({title: this.state.card.title, id: this.state.card.id}));
+  }
 
   // TODO: dispatch REMOVE_ACTIVE_CARD_SUCESS to the store
   // TODO: add dynamic card details below
@@ -72,6 +79,7 @@ class SingleCard extends React.Component {
                 style={{height: "45px"}}
                 value={this.state.card.title}
                 onChange={this.handleChangeTitle}
+                onBlur={this.handleOnBlurTitle}
               ></textarea>
               <p>
                 in list

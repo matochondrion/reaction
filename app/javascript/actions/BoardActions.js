@@ -51,6 +51,14 @@ export function createCardSuccess(card) {
   return { type: types.CREATE_CARD_SUCCESS, card: card }
 }
 
+export function updateCardRequest() {
+  return { type: types.UPDATE_CARD_REQUEST };
+}
+
+export function updateCardSuccess(card) {
+  return { type: types.UPDATE_CARD_SUCCESS, card: card }
+}
+
 export function setActiveCardSuccess(id) {
   return { type: types.SET_ACTIVE_CARD_SUCCESS, id: id}
 }
@@ -122,6 +130,17 @@ export function createCard(listId, card, callback) {
       dispatch(createCardSuccess(newCard));
 
       if (callback) { callback(newCard) }
+    });
+  }
+}
+
+export function updateCard(card, callback) {
+  return function(dispatch) {
+    dispatch(updateCardRequest());
+    apiClient.updateCard(card, (updatedCard) => {
+      dispatch(updateCardSuccess(updatedCard));
+
+      if (callback) { callback(updatedCard) }
     });
   }
 }
