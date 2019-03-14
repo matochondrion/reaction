@@ -5,17 +5,25 @@ import * as actions from '../../actions/BoardActions';
 import ActivityContainer from './ActivityContainer';
 
 class SingleCard extends React.Component {
-  
 
   static contextTypes = {
     store: PropTypes.object.isRequired
+  };
+
+  state = {
+    card: {},
   };
 
   componentDidMount() {
     const store = this.context.store;
     this.unsubscribe = store.subscribe(() => this.forceUpdate());
     const cardId = store.getState().activeCard;
-    store.dispatch(actions.fetchCard(cardId));
+    
+    store.dispatch(actions.fetchCard(cardId, (card) => {
+      this.setState({
+        card: card,
+      });
+    }));
   }
 
   componentWillUnmount() {
@@ -25,18 +33,17 @@ class SingleCard extends React.Component {
   handleCloseClick = () => {
     const store = this.context.store;
     store.dispatch(actions.removeActiveCard());
-  }
+  };
+
+  handleChangeTitle = (evt) => {
+
+  };
 
   // TODO: dispatch REMOVE_ACTIVE_CARD_SUCESS to the store
   // TODO: add dynamic card details below
 
   render() {
-    const store = this.context.store;
-    const cardId = Number(this.props.id);
-    const card = store.getState().cards.find((card) => {
-      return card.id === cardId;
-    });
-
+    const card = this.state.card;
     const labels = card.labels.map((label, idx) => {
       return (
         <div key={idx} className="member-container">
@@ -62,7 +69,8 @@ class SingleCard extends React.Component {
               <textarea 
                 className="list-title" 
                 style={{height: "45px"}}
-                value={card.title}
+                value={this.state.card.title}
+                onChange={this.handleChangeTitle}
               ></textarea>
               <p>
                 in list

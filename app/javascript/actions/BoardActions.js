@@ -138,11 +138,13 @@ export function removeActiveCard() {
   }
 }
 
-export function fetchCard(cardId) {
+export function fetchCard(cardId, callback) {
   return function(dispatch) {
     dispatch(fetchCardRequest());
     apiClient.getCard(cardId, (card) => {
       dispatch(fetchCardSuccess(card));
+
+      if (callback) { callback(card) }
     })
   }
 }
