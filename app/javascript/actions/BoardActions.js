@@ -135,6 +135,7 @@ export function createCard(listId, card, callback) {
 }
 
 export function updateCard(card, callback) {
+  console.log(card);
   return function(dispatch) {
     dispatch(updateCardRequest());
     apiClient.updateCard(card, (updatedCard) => {

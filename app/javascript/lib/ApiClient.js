@@ -66,6 +66,7 @@ const apiClient = {
   },
 
   updateCard: function(card, callback) {
+    console.log({card: {...card}});
     return axios.put(`${routes.CARDS_INDEX_URL}/${card.id}`, {card: {...card}})
       .then(unwrapData)
       .then(callback)
