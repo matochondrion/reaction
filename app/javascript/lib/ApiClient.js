@@ -52,7 +52,7 @@ const apiClient = {
   },
 
   createCard: function(listId, card, callback) {
-    return axios.post(routes.CREATE_CARD_URL, {'list_id': listId, 'card': card})
+    return axios.post(routes.CREATE_CARD_URL, { 'list_id': listId, 'card': card })
       .then(unwrapData)
       .then(callback)
       .catch(logError);
@@ -66,7 +66,21 @@ const apiClient = {
   },
 
   updateCard: function(cardId, card, callback) {
-    return axios.put(`${routes.CARDS_INDEX_URL}/${cardId}`, {card: card })
+    return axios.put(`${routes.CARDS_INDEX_URL}/${cardId}`, { card: card })
+      .then(unwrapData)
+      .then(callback)
+      .catch(logError);
+  },
+
+  deleteCard: function(cardId, callback) {
+    return axios.delete(`${routes.CARDS_INDEX_URL}/${cardId}`)
+      .then(unwrapData)
+      .then(callback)
+      .catch(logError);
+  },
+
+  createComment: function(cardId, comment, callback) {
+    return axios.post(`/api/comments/`, { card_id: cardId, comment: comment })
       .then(unwrapData)
       .then(callback)
       .catch(logError);

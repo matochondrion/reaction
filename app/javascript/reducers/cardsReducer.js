@@ -25,6 +25,20 @@ export default function cardsReducer(state = [], action) {
         return card;
       }
     });
+  } else if (action.type === 'DELETE_CARD_SUCCESS') {
+    return state.filter(card => card.id !== action.cardId);
+  } else if (action.type === 'CREATE_COMMENT_SUCCESS') {
+    return state.map((card) => {
+      if (card.id === action.comment.card_id) {
+        comments = card.comments.filter(comment => comment.id !== action.comment.id);
+
+        return Object.assign({}, card, {
+          comment: comments.concat(action.comment),
+        });
+      } else {
+        return card;
+      }
+    });
   } else {
     return state;
   }

@@ -47,6 +47,13 @@ class Api::CardsController < ApplicationController
     render 'api/shared/error', status: :not_found
   end
 
+  def destroy
+    @card = Card.find(params[:id])
+    @card.destroy
+
+    render :delete, status: 200
+  end
+
   private
 
   def card_params

@@ -13,6 +13,7 @@ class SingleCard extends React.Component {
 
   state = {
     card: undefined,
+    commentText: '',
   };
 
   componentDidMount() {
@@ -48,8 +49,22 @@ class SingleCard extends React.Component {
     {title: this.state.card.title}));
   }
 
-  // TODO: dispatch REMOVE_ACTIVE_CARD_SUCESS to the store
-  // TODO: add dynamic card details below
+  handleArchiveClick = () => {
+    this.context.store.dispatch(actions.deleteCard(this.state.card.id));
+  };
+
+  handleCommentTextChange = (evt) => {
+    this.setState({
+      commentText: evt.target.value,
+    });
+  };
+
+  handleCommentSaveClick = (evt) => {
+    evt.preventDefault();
+    evt.stopPropagation();
+
+    this.context.store.dispatch(actions.createComment(this.state.card.id, { text: this.state.commentText }));
+  };
 
   render() {
     const card = this.state.card;
@@ -124,7 +139,13 @@ class SingleCard extends React.Component {
                     </div>
                     <div className="comment">
                       <label>
-                        <textarea required="" rows="1" placeholder="Write a comment..."></textarea>
+                        <textarea
+                          required=""
+                          rows="1"
+                          placeholder="Write a comment..."
+                          defaultValue={this.state.commentText}
+                          onChange={this.handleCommentTextChange}
+                        ></textarea>
                         <div>
                           <a className="light-button card-icon sm-icon"></a>
                           <a className="light-button smiley-icon sm-icon"></a>
@@ -132,7 +153,12 @@ class SingleCard extends React.Component {
                           <a className="light-button attachment-icon sm-icon"></a>
                         </div>
                         <div>
-                          <input type="submit" className="button not-implemented" value="Save"/>
+                          <input
+                            type="submit"
+                            className={this.state.commentText.length === 0 ? "button not-implemented" : "button"} 
+                            value="Save"
+                            onClick={this.handleCommentSaveClick}
+                          />
                         </div>
                       </label>
                     </div>
@@ -167,7 +193,7 @@ class SingleCard extends React.Component {
                 <li className="subscribe-button"><i className="sub-icon sm-icon"></i>Subscribe<i className="check-icon sm-icon"></i>
                 </li>
                 <hr/>
-                <li className="archive-button"><i className="file-icon sm-icon "></i>Archive</li>
+                <li className="archive-button" onClick={this.handleArchiveClick}><i className="file-icon sm-icon "></i>Archive</li>
               </ul>
               <ul className="light-list">
                 <li className="not-implemented">Share and more...</li>

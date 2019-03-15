@@ -63,7 +63,7 @@ export function setActiveCardSuccess(id) {
   return { type: types.SET_ACTIVE_CARD_SUCCESS, id: id}
 }
 
-export function removeActiveCardSucess() {
+export function removeActiveCardSuccess() {
   return { type: types.REMOVE_ACTIVE_CARD_SUCCESS }
 }
 
@@ -73,6 +73,14 @@ export function fetchCardRequest() {
 
 export function fetchCardSuccess(card) {
   return { type: types.FETCH_CARD_SUCCESS, card: card };
+}
+
+export function deleteCardSuccess(cardId) {
+  return { type: types.DELETE_CARD_SUCCESS, cardId: cardId };
+}
+
+export function createCommentSuccess(newComment) {
+  return { type: types.CREATE_COMMENT_SUCCESS, comment: newComment };
 }
 
 export function updateListTitle(id, newTitle) {
@@ -145,6 +153,19 @@ export function updateCard(cardId, card, callback) {
   }
 }
 
+
+
+export function createComment(cardId, comment, callback) {
+  return function(dispatch) {
+    // dispatch(updateCommentRequest());
+    apiClient.createComment(cardId, comment, (newComment) => {
+      dispatch(createCommentSuccess(newComment));
+
+      if (callback) { callback(newComment) }
+    });
+  }
+}
+
 export function setActiveCard(cardId) {
   return function(dispatch) {
     dispatch(setActiveCardSuccess(cardId));
@@ -153,7 +174,7 @@ export function setActiveCard(cardId) {
 
 export function removeActiveCard() {
   return function(dispatch) {
-    dispatch(removeActiveCardSucess());
+    dispatch(removeActiveCardSuccess());
   }
 }
 
@@ -165,5 +186,16 @@ export function fetchCard(cardId, callback) {
 
       if (callback) { callback(card) }
     })
+  }
+}
+
+export function deleteCard(cardId, callback) {
+  return function(dispatch) {
+    apiClient.deleteCard(cardId, () => {
+      dispatch(removeActiveCard());
+      dispatch(deleteCardSuccess(cardId));
+
+      if (callback) { callback(cardId) }
+    });
   }
 }
