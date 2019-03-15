@@ -67,8 +67,12 @@ class SingleCard extends React.Component {
   };
 
   render() {
-    const card = this.state.card;
+    const activeCardId = this.context.store.getState().activeCard;
+    const card = this.context.store.getState().cards.find((card) => {
+      return card.id === activeCardId;
+    });
 
+    console.log(card);
     if (card) {
       const labels = card.labels.map((label, idx) => {
         return (
@@ -94,7 +98,7 @@ class SingleCard extends React.Component {
               <textarea 
                 className="list-title" 
                 style={{height: "45px"}}
-                value={this.state.card.title}
+                value={card.title}
                 onChange={this.handleChangeTitle}
                 onBlur={this.handleOnBlurTitle}
               ></textarea>

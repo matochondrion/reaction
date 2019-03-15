@@ -30,10 +30,12 @@ export default function cardsReducer(state = [], action) {
   } else if (action.type === 'CREATE_COMMENT_SUCCESS') {
     return state.map((card) => {
       if (card.id === action.comment.card_id) {
-        comments = card.comments.filter(comment => comment.id !== action.comment.id);
+        console.log(action.comment);
 
+        card.comments = card.comments || [];
+        const comments = card.comments.filter(comment => comment.id !== action.comment.id);
         return Object.assign({}, card, {
-          comment: comments.concat(action.comment),
+          comments: comments.concat(action.comment),
         });
       } else {
         return card;
