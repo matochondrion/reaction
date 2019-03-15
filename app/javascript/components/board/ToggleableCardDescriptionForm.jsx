@@ -24,8 +24,10 @@ export default class ToggleableCardDescriptionForm extends React.Component {
     });
   }
 
-  handleOnBlur = () => {
-    this.handleSaveClick()
+  handleOnBlur = (evt) => {
+    this.setState({
+      description: evt.target.value
+    })
   }
 
   handleOnChange = (evt) => {
@@ -43,8 +45,8 @@ export default class ToggleableCardDescriptionForm extends React.Component {
   }
 
   handleCloseFormClick = (evt) => {
-    console.log(this.props.description)
-    // TODO: why????
+    console.log('handleCloseClickForm is called')
+    // TODO: 
     this.setState({
       formIsOpen: false,
       description: this.props.description
