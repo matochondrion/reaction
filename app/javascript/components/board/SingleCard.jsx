@@ -72,7 +72,6 @@ class SingleCard extends React.Component {
       return card.id === activeCardId;
     });
 
-    console.log(card);
     if (card) {
       const labels = card.labels.map((label, idx) => {
         return (

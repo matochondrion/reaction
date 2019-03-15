@@ -2,7 +2,8 @@ import React from 'react';
 import Board from './Board.jsx';
 import PropTypes from 'prop-types';
 import * as actions from '../../actions/BoardActions';
-import SingleCard from './SingleCard';
+import SingleCardContainer from './SingleCardContainer';
+
 
 class BoardContainer extends React.Component {
   static contextTypes = {
@@ -32,7 +33,7 @@ class BoardContainer extends React.Component {
     if (board) {
       return (
         <div>
-          {activeCard ? <SingleCard id={activeCard} /> : null }
+          {activeCard ? <SingleCardContainer activeCard={activeCard} /> : null }
           <Board
             board={board}
             boardId={boardId}

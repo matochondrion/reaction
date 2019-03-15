@@ -45,7 +45,6 @@ export default class ToggleableCardDescriptionForm extends React.Component {
   }
 
   handleCloseFormClick = (evt) => {
-    console.log('handleCloseClickForm is called')
     // TODO: 
     this.setState({
       formIsOpen: false,
