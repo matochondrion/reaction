@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as actions from '../../actions/BoardActions';
 import SingleCard from './SingleCard';
-import PopOver from './PopOver';
+import Popover from './Popover';
 
 export default class SingleCardContainer extends React.Component {
   state = {
