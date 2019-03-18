@@ -66,6 +66,12 @@ class SingleCard extends React.Component {
     this.context.store.dispatch(actions.createComment(this.state.card.id, { text: this.state.commentText }));
   };
 
+  renderDueDate = (dueDate) => {
+    if (!dueDate) return 'no assigned due date';
+
+    return new Date(dueDate) < Date.now() ? '(past due)' : null;
+  };
+
   render() {
     const activeCardId = this.context.store.getState().activeCard;
     const card = this.context.store.getState().cards.find((card) => {
@@ -126,7 +132,9 @@ class SingleCard extends React.Component {
                           type="checkbox" 
                           className="checkbox" 
                           checked=""
-                        />{card.due_date}<span>{new Date(card.due_date) > Date.now() ? null : "(past due)"  }</span>
+                        />
+                        {card.due_date}
+                        <span>{this.renderDueDate(card.due_date)}</span>
                       </div>
                     </li>
                   </ul>
